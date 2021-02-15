@@ -1,0 +1,167 @@
+{% extends '模板.html' %}
+
+{% block title %}主页 - {{ user_name }}{% endblock %}
+
+{% block navbar %}
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link" href="/主页">主页</a>
+            <a class="nav-item nav-link" href="/个人信息">个人信息</a>
+            <a class="nav-item nav-link" href="/修改密码">修改密码</a>
+            <a class="nav-item nav-link" href="/登出">登出</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <h3>你好，{{ user_name }}！</h3><br>
+
+    <div class="row">
+        {% if user_type == 'student' %}
+            <div class="col-sm-4">
+                <div class="card" style="width: 18rem;">
+                    <img src="https://pic3.zhimg.com/v2-6f18c8533ea0be53e96e9b11073da0f9_1200x500.jpg" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">选课</h5>
+                        <p class="card-text">查看全校可选课程，并选择下个学期要参与的课程。</p>
+                        <a href="/主页/选课" class="btn btn-primary stretched-link">进入选课</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <div class="card" style="width: 18rem;">
+                    <img src="https://www.simpletense.com/blog/wp-content/uploads/2017/08/%E7%BE%8E%E5%9B%BD%E7%95%99%E5%AD%A6-%E9%80%80%E8%AF%BE%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9.jpg" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">退课</h5>
+                        <p class="card-text">查看已选课程，并选择下个学期要退出的课程。</p>
+                        <a href="/主页/退课" class="btn btn-primary stretched-link">进入退课</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <div class="card" style="width: 18rem;">
+                    <img src="https://botanwang.com/sites/default/files/styles/632_n/public/field/image/sdfhsdfh_36.jpg?itok=3nCzYE15" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">选课历史</h5>
+                        <p class="card-text">查询你已选的所有课程。</p>
+                        <a href="/主页/选课历史" class="btn btn-primary stretched-link">进入查询</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <div class="card" style="width: 18rem;">
+                    <img src="https://lh3.googleusercontent.com/proxy/iR6A3OHH_O4nbv7IabCWGkkOpk_yvKhW5Lygcql_3T1pGy-vec0AmI1VprChVUybm7pTBYnTg6vkHzSh2FD0r-NHbBC1GFvSUxiS7wo5ANVUYg" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">成绩查询</h5>
+                        <p class="card-text">查询你已获得的成绩，GPA，并呈现为可视化图表。</p>
+                        <a href="/主页/成绩查询" class="btn btn-primary stretched-link">进入查询</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <div class="card" style="width: 18rem;">
+                    <img src="https://static3.doxue.com/uploads/2019/10/17/fc9e88b841fe52abe346e008295c0edc.jpg" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">全校课程表</h5>
+                        <p class="card-text">查询全校所有教学班的信息。</p>
+                        <a href="/主页/全校课程表" class="btn btn-primary stretched-link">进入查询</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <div class="card" style="width: 18rem;">
+                    <img src="https://qqpublic.qpic.cn/qq_public/0/0-3047511030-838360E29D9C2E67C145F5ED3161032E/0?fmt=jpg&size=71&h=600&w=900&ppv=1" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">所有课程</h5>
+                        <p class="card-text">查询全校所有课程。</p>
+                        <a href="/主页/所有课程" class="btn btn-primary stretched-link">进入注册</a>
+                    </div>
+                </div>
+            </div>
+        {% elif user_type == 'teacher' %}
+            <div class="col-sm-4">
+                <div class="card" style="width: 18rem;">
+                    <img src="https://lh3.googleusercontent.com/proxy/guKk5QL1O6nv7UHl6epTd4KZNqZ48r8pIeKrK7p6q9kmGYWWUYuNYwFNyYxlbHyIkL8ijfISAy95ASQuTVPbFfhNHhP1XjcSrAOYkyh-mx5Tt8aUZHY" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">注册教学班</h5>
+                        <p class="card-text">注册新的教学班，并开放选课。</p>
+                        <a href="/主页/注册教学班" class="btn btn-primary stretched-link">进入注册</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <div class="card" style="width: 18rem;">
+                    <img src="data:image/jpeg;base64,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" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">班级管理</h5>
+                        <p class="card-text">查询班级学生的个人信息，以及成绩分布情况。</p>
+                        <a href="/主页/班级管理" class="btn btn-primary stretched-link">进入管理</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <div class="card" style="width: 18rem;">
+                    <img src="https://qqpublic.qpic.cn/qq_public/0/0-3047511030-838360E29D9C2E67C145F5ED3161032E/0?fmt=jpg&size=71&h=600&w=900&ppv=1" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">所有课程</h5>
+                        <p class="card-text">查询全校所有可供教学的课程。</p>
+                        <a href="/主页/所有课程" class="btn btn-primary stretched-link">进入注册</a>
+                    </div>
+                </div>
+            </div>
+        {% elif user_type == 'admin' %}
+            <div class="col-sm-4">
+                <div class="card" style="width: 18rem;">
+                    <img src="https://news.jnu.edu.cn/UploadFiles/2016/7/201607251605295606.jpg" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">教师注册</h5>
+                        <p class="card-text">登记信息，注册新的教师账号，并设置一个默认密码。</p>
+                        <a href="/主页/教师注册" class="btn btn-primary stretched-link">进入注册</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <div class="card" style="width: 18rem;">
+                    <img src="https://www.gov.mo/zh-hans/wp-content/uploads/sites/5/2020/03/n20chl7utk.jpeg" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">学生注册</h5>
+                        <p class="card-text">登记信息，注册新的学生账号，并设置一个默认密码。</p>
+                        <a href="/主页/学生注册" class="btn btn-primary stretched-link">进入注册</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <div class="card" style="width: 18rem;">
+                    <img src="https://imgcache.dealmoon.com/thumbimg.dealmoon.com/dealmoon/9c2/2e6/e1b/303d107796cfb4c4d68aeae.jpg_0_400_13_6e73.jpg" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">课程注册</h5>
+                        <p class="card-text">登记信息，注册新的可供开设的课程。</p>
+                        <a href="/主页/课程注册" class="btn btn-primary stretched-link">进入注册</a>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

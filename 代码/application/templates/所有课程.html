@@ -1,0 +1,112 @@
+{% extends '模板.html' %}
+
+{% block title %}所有课程{% endblock %}
+
+{% block navbar %}
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link" href="/主页">主页</a>
+            <a class="nav-item nav-link" href="/个人信息">个人信息</a>
+            <a class="nav-item nav-link" href="/修改密码">修改密码</a>
+            <a class="nav-item nav-link" href="/登出">登出</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <form action="/主页/所有课程" method="post">
+        <div class="form-group">
+            <label>课程类别</label>
+            <select name="category" type="text" class="form-control">
+                <option>全部</option>
+                {% if option == '学科基础' %}
+                    <option selected>学科基础</option>
+                    <option>专业必修</option>
+                    <option>专业选修</option>
+                    <option>跨学科专业选修</option>
+                {% elif option == '专业必修' %}
+                    <option>学科基础</option>
+                    <option selected>专业必修</option>
+                    <option>专业选修</option>
+                    <option>跨学科专业选修</option>
+                {% elif option == '专业选修' %}
+                    <option>学科基础</option>
+                    <option>专业必修</option>
+                    <option selected>专业选修</option>
+                    <option>跨学科专业选修</option>
+                {% elif option == '跨学科专业选修' %}
+                    <option>学科基础</option>
+                    <option>专业必修</option>
+                    <option>专业选修</option>
+                    <option selected>跨学科专业选修</option>
+                {% else %}
+                    <option>学科基础</option>
+                    <option>专业必修</option>
+                    <option>专业选修</option>
+                    <option>跨学科专业选修</option>
+                {% endif %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label>课程类别</label>
+            <select name="department" type="text" class="form-control">
+                <option>全部</option>
+                <option>哲</option>
+                <option>文</option>
+                <option>历史</option>
+                <option>国</option>
+                <option>艺术</option>
+                <option>外国语</option>
+                <option>新闻</option>
+                <option>农业与农村发展</option>
+                <option>社会与人口</option>
+                <option>公共管理</option>
+                <option>信息资源管理</option>
+                <option>经济</option>
+                <option>应用经济</option>
+                <option>财政金融</option>
+                <option>统计</option>
+                <option>商</option>
+                <option>劳动人事</option>
+                <option>中法</option>
+                <option>法</option>
+                <option>马克思主义</option>
+                <option>国际关系</option>
+                <option>环境</option>
+                <option>信息</option>
+                <option>理</option>
+                <option>数学</option>
+                <option>高瓴人工智能</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">查询</button>
+    </form>
+
+    <br><label>所有课程</label>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">课程号</th>
+                <th scope="col">课程名</th>
+                <th scope="col">开课学院</th>
+                <th scope="col">课程类别</th>
+                <th scope="col">学分</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for course in courses %}
+                <tr>
+                    <th scope="row">{{ course.id }}</th>
+                    <td>{{ course.name }}</td>
+                    <td>{{ course.department }}</td>
+                    <td>{{ course.category }}</td>
+                    <td>{{ course.credit }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

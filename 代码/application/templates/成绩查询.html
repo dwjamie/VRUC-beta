@@ -1,0 +1,105 @@
+{% extends '模板.html' %}
+
+{% block title %}成绩查询{% endblock %}
+
+{% block navbar %}
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link" href="/主页">主页</a>
+            <a class="nav-item nav-link" href="/个人信息">个人信息</a>
+            <a class="nav-item nav-link" href="/修改密码">修改密码</a>
+            <a class="nav-item nav-link" href="/登出">登出</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <form action="/主页/成绩查询" method="post">
+        <div class="form-group">
+            <label>时段</label>
+            <select name="semester" type="text" class="form-control">
+                <option>全部</option>
+                {% if options[0] == '本学期' %}
+                    <option selected>本学期</option>
+                    <option>本学年</option>
+                {% elif options[0] == '本学年' %}
+                    <option>本学期</option>
+                    <option selected>本学年</option>
+                {% else %}
+                    <option>本学期</option>
+                    <option>本学年</option>
+                {% endif %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label>课程类别</label>
+            <select name="category" type="text" class="form-control">
+                <option>全部</option>
+                {% if options[1] == '学科基础' %}
+                    <option selected>学科基础</option>
+                    <option>专业必修</option>
+                    <option>专业选修</option>
+                    <option>跨学科专业选修</option>
+                {% elif options[1] == '专业必修' %}
+                    <option>学科基础</option>
+                    <option selected>专业必修</option>
+                    <option>专业选修</option>
+                    <option>跨学科专业选修</option>
+                {% elif options[1] == '专业选修' %}
+                    <option>学科基础</option>
+                    <option>专业必修</option>
+                    <option selected>专业选修</option>
+                    <option>跨学科专业选修</option>
+                {% elif options[1] == '跨学科专业选修' %}
+                    <option>学科基础</option>
+                    <option>专业必修</option>
+                    <option>专业选修</option>
+                    <option selected>跨学科专业选修</option>
+                {% else %}
+                    <option>学科基础</option>
+                    <option>专业必修</option>
+                    <option>专业选修</option>
+                    <option>跨学科专业选修</option>
+                {% endif %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">查询</button>
+    </form>
+
+    {% if gpa >= 0 and ave_grade >= 0 %}
+        <br><label>GPA：{{ gpa }}</label>
+        <br><label>平均成绩：{{ ave_grade }}</label>
+    {% endif %}
+
+    {% if have_fig %}
+        <br>
+        <img src="{{ url_for('static', filename='images/各科成绩分布.png') }}?t={{ random }}" class="rounded mx-auto d-block" alt="各科成绩分布">
+        <br>
+    {% endif %}
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">课程名</th>
+                <th scope="col">课程类别</th>
+                <th scope="col">学期</th>
+                <th scope="col">学分</th>
+                <th scope="col">成绩</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for sc in SCs %}
+                <tr>
+                    <th scope="row">{{ sc.teaching_class.course.name }}</th>
+                    <td>{{ sc.teaching_class.course.category }}</td>
+                    <td>{{ sc.teaching_class.semester }}</td>
+                    <td>{{ sc.teaching_class.course.credit }}</td>
+                    <td>{{ sc.grade }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

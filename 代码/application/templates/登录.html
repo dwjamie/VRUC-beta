@@ -1,0 +1,35 @@
+{% extends '模板.html' %}
+
+{% block title %}登录{% endblock %}
+
+{% block content %}
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                {% if message == '您已成功登出！' %}
+                    <div class="alert alert-success" role="alert">
+                        {{ message }}
+                    </div>
+                {% else %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ message }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <h3>欢迎来到微人大 beta！</h3><br>
+
+    <form action="/登录" method="post">
+        <div class="form-group">
+            <label>学号/教职工号</label>
+                <input name="id" type="text" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>密码</label>
+                <input name="password" type="password" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary">登录</button>
+    </form>
+{% endblock %}

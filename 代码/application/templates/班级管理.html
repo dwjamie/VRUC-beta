@@ -1,0 +1,56 @@
+{% extends '模板.html' %}
+
+{% block title %}班级管理{% endblock %}
+
+{% block navbar %}
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link" href="/主页">主页</a>
+            <a class="nav-item nav-link" href="/个人信息">个人信息</a>
+            <a class="nav-item nav-link" href="/修改密码">修改密码</a>
+            <a class="nav-item nav-link" href="/登出">登出</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <h4>学生成绩情况</h4>
+
+    {% if ave_gpa > 0 and max_gpa > 0 and min_gpa > 0 %}
+        <br><label>班级平均GPA：{{ ave_gpa }}</label>
+        <br><label>最高：{{ max_gpa }}</label>
+        <br><label>最低：{{ min_gpa }}</label>
+    {% endif %}
+
+    {% if have_fig %}
+        <br>
+        <img src="{{ url_for('static', filename='images/班级GPA分布.png') }}?t={{ random }}" class="rounded mx-auto d-block" alt="班级GPA分布">
+        <br>
+    {% endif %}
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">学号</th>
+                <th scope="col">姓名</th>
+                <th scope="col">性别</th>
+                <th scope="col">电话</th>
+                <th scope="col">邮箱</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+                <tr>
+                    <th scope="row">{{ student.id }}</th>
+                    <td>{{ student.name }}</td>
+                    <td>{{ student.gender }}</td>
+                    <td>{{ student.phone_number }}</td>
+                    <td>{{ student.email }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

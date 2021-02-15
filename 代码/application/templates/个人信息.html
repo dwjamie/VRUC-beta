@@ -1,0 +1,58 @@
+{% extends '模板.html' %}
+
+{% block title %}个人信息{% endblock %}
+
+{% block navbar %}
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link" href="/主页">主页</a>
+            <a class="nav-item nav-link" href="/个人信息">个人信息</a>
+            <a class="nav-item nav-link" href="/修改密码">修改密码</a>
+            <a class="nav-item nav-link" href="/登出">登出</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    {% if user_type == 'student' %}
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">学号：{{ user_id }}</li>
+            <li class="list-group-item">姓名：{{ user_name }}</li>
+            <li class="list-group-item">性别：{{ user_gender }}</li>
+            <li class="list-group-item">电话：{{ user_phone_number }}</li>
+            <li class="list-group-item">邮箱：{{ user_email }}</li>
+            <li class="list-group-item">年级：{{ user_grade }}级</li>
+            <li class="list-group-item">学院：{{ user_department }}学院</li>
+            <li class="list-group-item">班级：{{ user_class_index }}班</li>
+            <li class="list-group-item">班主任：{{ user_head_teacher_name }}</li>
+        </ul>
+    {% else %}
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">教职工号：{{ user_id }}</li>
+            <li class="list-group-item">姓名：{{ user_name }}</li>
+            <li class="list-group-item">性别：{{ user_gender }}</li>
+            <li class="list-group-item">电话：{{ user_phone_number }}</li>
+            <li class="list-group-item">邮箱：{{ user_email }}</li>
+            <li class="list-group-item">职称：{{ user_title }}</li>
+            <li class="list-group-item">学院：{{ user_department }}学院</li>
+            {% if user_class_index %}
+                <li class="list-group-item">班级：{{ user_class_index }}班</li>
+            {% else %}
+                <li class="list-group-item">班级：无</li>
+            {% endif %}
+            <li class="list-group-item">所授课程：
+                {% if user_teaching_courses %}
+                    {% for user_teaching_course in user_teaching_courses %}
+                        {{ user_teaching_course }}&nbsp;
+                    {% endfor %}
+                {% else %}
+                    无
+                {% endif %}
+            </li>
+        </ul>
+    {% endif %}
+
+{% endblock %}

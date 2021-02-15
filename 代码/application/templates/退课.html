@@ -1,0 +1,64 @@
+{% extends '模板.html' %}
+
+{% block title %}退课{% endblock %}
+
+{% block navbar %}
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link" href="/主页">主页</a>
+            <a class="nav-item nav-link" href="/个人信息">个人信息</a>
+            <a class="nav-item nav-link" href="/修改密码">修改密码</a>
+            <a class="nav-item nav-link" href="/登出">登出</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                {% if message == '退课成功！' %}
+                    <div class="alert alert-success" role="alert">
+                        {{ message }}
+                    </div>
+                {% else %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ message }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <form action="/主页/退课" method="post">
+        <div class="form-group">
+            <label>教学班号</label>
+                <input name="id" type="text" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary">退课</button>
+    </form>
+
+    <br><label>已选课程列表</label>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">教学班号</th>
+                <th scope="col">课程名</th>
+                <th scope="col">授课老师</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for teaching_class in selected_teaching_classes %}
+                <tr>
+                    <th scope="row">{{ teaching_class.id }}</th>
+                    <td>{{ teaching_class.course.name }}</td>
+                    <td>{{ teaching_class.teacher.name }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -1,0 +1,95 @@
+{% extends '模板.html' %}
+
+{% block title %}教师注册{% endblock %}
+
+{% block navbar %}
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link" href="/主页">主页</a>
+            <a class="nav-item nav-link" href="/个人信息">个人信息</a>
+            <a class="nav-item nav-link" href="/修改密码">修改密码</a>
+            <a class="nav-item nav-link" href="/登出">登出</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                {% if message == '教师注册成功！' %}
+                    <div class="alert alert-success" role="alert">
+                        {{ message }}
+                    </div>
+                {% else %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ message }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <form action="/主页/教师注册" method="post">
+        <div class="form-group">
+            <label>姓名</label>
+                <input name="name" type="text" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>性别</label>
+                <select name="gender" type="text" class="form-control">
+                    <option>请选择...</option>
+                    <option>男</option>
+                    <option>女</option>
+                </select>
+        </div>
+        <div class="form-group">
+            <label>电话</label>
+                <input name="phone_number" type="text" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>邮箱</label>
+                <input name="email" type="email" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>职称</label>
+                <input name="title" type="text" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>学院</label>
+                <select name="department" type="text" class="form-control">
+                    <option>请选择...</option>
+                    <option>哲</option>
+                    <option>文</option>
+                    <option>历史</option>
+                    <option>国</option>
+                    <option>艺术</option>
+                    <option>外国语</option>
+                    <option>新闻</option>
+                    <option>农业与农村发展</option>
+                    <option>社会与人口</option>
+                    <option>公共管理</option>
+                    <option>信息资源管理</option>
+                    <option>经济</option>
+                    <option>应用经济</option>
+                    <option>财政金融</option>
+                    <option>统计</option>
+                    <option>商</option>
+                    <option>劳动人事</option>
+                    <option>中法</option>
+                    <option>法</option>
+                    <option>马克思主义</option>
+                    <option>国际关系</option>
+                    <option>环境</option>
+                    <option>信息</option>
+                    <option>理</option>
+                    <option>数学</option>
+                    <option>高瓴人工智能</option>
+                </select>
+        </div>
+        <button type="submit" class="btn btn-primary">注册</button>
+    </form>
+{% endblock %}
